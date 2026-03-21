@@ -1,0 +1,37 @@
+@page
+@model PIM_3.Pages.ProdutosModel
+@{
+    ViewData["Title"] = "Gestão de Estoque";
+}
+
+<div class="container mt-4">
+    <h2>📦 Controle de Estoque (SQLite)</h2>
+
+    <form method="post" asp-page-handler="AddTeste">
+        <button class="btn btn-primary mb-3">Add Produto de Teste</button>
+    </form>
+
+    <table class="table table-striped border">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListaProdutos)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Categoria</td>
+                    <td>@item.Preco.ToString("C")</td>
+                    <td>@item.QuantidadeEstoque</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
