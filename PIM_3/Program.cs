@@ -1,18 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using PIM_3.Data; // Se o nome do seu projeto for PIM_3
+using PIM_3.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Adiciona suporte às Páginas Razor (O que já estava aí)
+// 1. Adiciona suporte às Páginas Razor
 builder.Services.AddRazorPages();
 
-// 2. CONFIGURAÇÃO DO SQLITE (Adicione estas linhas)
+// 2. CONFIGURAÇÃO DO SQLITE
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=PimBanco.db"));
 
 var app = builder.Build();
 
-// Configurações de ambiente (O que já estava aí)
+// Configurações de ambiente
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -20,12 +20,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Garante que o seu home.js seja lido!
+
+// ESSENCIAL: Garante que o navegador ache a pasta wwwroot/js
+app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages().WithStaticAssets();
+// Simplificando o mapeamento para evitar erros de assets
+app.MapRazorPages();
 
 app.Run();
