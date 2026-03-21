@@ -19,9 +19,7 @@ C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\PIM_3.sourcelink.json
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
-C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\scopedcss\bundle\PIM_3.styles.css
-C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\scopedcss\projectbundle\PIM_3.bundle.scp.css
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\kuer327per-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\c56j5jmq0h-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\3gailqixmh-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
@@ -84,8 +82,6 @@ C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\roz14aicx9-{0}-2z0
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\z7cd6m7vga-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\6okod6xce6-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\3wm93fsjn5-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\oieanquu8l-{0}-6re1gtazly-6re1gtazly.gz
-C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\compressed\ory64uhe5y-{0}-6re1gtazly-6re1gtazly.gz
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\luiso\PIM\PIM-III\PIM_3\obj\Debug\net10.0\staticwebassets.development.json
