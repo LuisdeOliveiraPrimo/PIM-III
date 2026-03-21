@@ -1,0 +1,22 @@
+@page
+@model PIM_3.Pages.CadastroModel
+@{
+    ViewData["Title"] = "PIM III - Cadastro";
+}
+
+<div style="font-family: Arial, sans-serif; margin: 20px;">
+    <h1>Cadastro de Usuário</h1>
+
+    <form method="post">
+        <label>Nome do Usuário:</label>
+        <input type="text" name="NomeUsuario" placeholder="Ex: Luis" required />
+        <button type="submit">Enviar Dados</button>
+    </form>
+
+    <hr />
+
+    <div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0;">
+        <strong>Resposta do Servidor:</strong>
+        <p>@Model.MensagemDeRetorno</p>
+    </div>
+</div>
