@@ -161,6 +161,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // SEÇÃO 4: NOSSAS SOLUÇÕES (O PRODUTO)
     // ==========================================
+
     const solucoes = document.createElement('section');
     solucoes.style.padding = "80px";
 
