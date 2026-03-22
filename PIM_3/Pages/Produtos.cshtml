@@ -1,0 +1,102 @@
+@page
+@model PIM_3.Pages.ProdutosModel
+@{
+    ViewData["Title"] = "Gestão Operacional";
+}
+
+<div id="app-root"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('app-root');
+
+        // Estilos CSS rápidos para manter a identidade do Dashboard
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .dash-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+            .dash-row.reverse { flex-direction: row-reverse; }
+            .graph-box { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 250px; }
+            .text-box { flex: 1; }
+            .text-box h3 { color: #045951; font-size: 1.8rem; margin-bottom: 15px; }
+            .text-box p { color: #666; line-height: 1.6; font-size: 1.1rem; }
+            .btn-action { background: #0ABFAD; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+            .btn-action:hover { background: #045951; transform: translateY(-2px); }
+            .input-fake { border: 1px solid #ddd; padding: 10px; border-radius: 5px; background: #fafafa; color: #888; width: 80%; }
+        `;
+        document.head.appendChild(style);
+
+        root.innerHTML = `
+            <div style="padding: 40px 80px; background: #fdfdfd; min-height: 100vh; font-family: 'Segoe UI', sans-serif;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                    <div>
+                        <h1 style="color: #222; margin: 0; font-weight: 800; font-size: 2.5rem;">Central de Inventário</h1>
+                        <p style="color: #666; font-size: 1.1rem; margin-top: 5px;">Controle total e ações rápidas sobre seus 60.000 itens cadastrados.</p>
+                    </div>
+                    <button onclick="window.location.href='/'" style="padding: 12px 25px; cursor: pointer; border: 2px solid #0ABFAD; color: #0ABFAD; background: transparent; border-radius: 30px; font-weight: bold;">← Painel Principal</button>
+                </div>
+
+                <div class="dash-row">
+                    <div class="graph-box">
+                        <div style="width: 90%; display: flex; flex-direction: column; gap: 15px;">
+                            <div class="input-fake">🔍 Digite o nome ou bipe o código de barras...</div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <div style="flex: 1; padding: 15px; background: #eee; border-radius: 8px; color: #888; text-align: center;">Coca-Cola 2L</div>
+                                <div style="flex: 1; padding: 15px; background: #eee; border-radius: 8px; color: #888; text-align: center;">Arroz Tio João</div>
+                                <div style="flex: 1; padding: 15px; background: #eee; border-radius: 8px; color: #888; text-align: center;">Leite Itambé</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Localização Dinâmica</h3>
+                        <p>No Stoque.me, encontrar um produto é instantâneo. O sistema suporta pesquisa fonética (para nomes parecidos) e leitura de **código de barras** via bipe, garantindo agilidade operacional para o dono do mercado ou o repositor.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row reverse">
+                    <div class="graph-box">
+                        <div style="display: flex; flex-direction: column; gap: 15px; width: 80%; background: #f9f9f9; padding: 25px; border-radius: 15px; border: 1px solid #eee;">
+                            <div style="color: #444; font-weight: bold;">Criação de Oferta</div>
+                            <div class="input-fake" style="width: 100%;">Desconto % (Ex: 20)</div>
+                            <div class="input-fake" style="width: 100%;">Período (Ex: 01/04 a 05/04)</div>
+                            <button class="btn-action" style="margin-top: 10px; background: #28a745;">Gerar Promoção Ativa</button>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Liquidação Estratégica</h3>
+                        <p>O dono do mercado pode selecionar qualquer produto (Ex: Cerveja que não está saindo) e criar uma promoção em segundos. O Stoque.me atualiza o **Preço de Venda** automaticamente no caixa, gerando giro de estoque e evitando que o capital fique parado.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row">
+                    <div class="graph-box">
+                        <div style="width: 90%; background: #fff5e6; border: 2px solid #ffc107; padding: 20px; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 0.9rem; color: #e67e22; font-weight: bold; margin-bottom: 5px;">Atenção: Validade Próxima</div>
+                            <h4 style="margin: 5px 0 15px 0; color: #333;">Leite Integral Itambé 1L</h4>
+                            <p style="font-size: 0.8rem; color: #888;">Lote: ABC123 | Qtd: 12un | Vence: 05/04</p>
+                            <button class="btn-action" style="margin-top: 15px; background: #dc3545;">Mágico: Liquidar (50% OFF)</button>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Gestão de Desperdício Zero (PVPS)</h3>
+                        <p>Aqui está o diferencial do Stoque.me. O sistema identifica automaticamente lotes laranja (vencendo em 15 dias) e cria o botão mágico: **"Liquidificar para Salvar"**. Ao clicar, o sistema aplica um desconto agressivo para o item sair logo da prateleira, transformando uma perda certa em capital recuperado.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row reverse">
+                    <div class="graph-box">
+                        <div style="width: 80%; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 20px;">📦🔄🏗️</div>
+                            <button class="btn-action" style="background: transparent; color: #0ABFAD; border: 2px solid #0ABFAD;">Lançar Nova Carga</button>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Controle de Reposição</h3>
+                        <p>Através do módulo de **Gestão Operacional**, a entrada de novos produtos é simplificada. O sistema permite o lançamento em massa de lotes, datas de validade e a correção de custos de aquisição, mantendo o controle de estoque em tempo real sincronizado.</p>
+                    </div>
+                </div>
+
+            </div>
+        `;
+    });
+</script>

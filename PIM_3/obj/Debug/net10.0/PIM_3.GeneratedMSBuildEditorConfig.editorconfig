@@ -34,8 +34,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Produtos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHV0b3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Relatorios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVsYXRvcmlvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Shared/_Layout.cshtml]

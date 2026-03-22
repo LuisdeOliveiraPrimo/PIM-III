@@ -1,0 +1,110 @@
+@page
+@model PIM_3.Pages.RelatoriosModel
+@{
+    ViewData["Title"] = "Relatórios de Desempenho";
+}
+
+<div id="app-root"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('app-root');
+
+        // Mantendo a identidade visual do Dashboard e Produtos
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .dash-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+            .dash-row.reverse { flex-direction: row-reverse; }
+            .graph-box { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 250px; }
+            .text-box { flex: 1; }
+            .text-box h3 { color: #045951; font-size: 1.8rem; margin-bottom: 15px; }
+            .text-box p { color: #666; line-height: 1.6; font-size: 1.1rem; }
+            .rank-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; color: #444; }
+            .rank-badge { background: #0ABFAD; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; }
+        `;
+        document.head.appendChild(style);
+
+        root.innerHTML = `
+            <div style="padding: 40px 80px; background: #fdfdfd; min-height: 100vh; font-family: 'Segoe UI', sans-serif;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                    <div>
+                        <h1 style="color: #222; margin: 0; font-weight: 800; font-size: 2.5rem;">Inteligência de Resultados</h1>
+                        <p style="color: #666; font-size: 1.1rem; margin-top: 5px;">Relatórios consolidados para prestação de contas e fechamento de mês.</p>
+                    </div>
+                    <button onclick="window.location.href='/'" style="padding: 12px 25px; cursor: pointer; border: 2px solid #0ABFAD; color: #0ABFAD; background: transparent; border-radius: 30px; font-weight: bold;">← Painel Principal</button>
+                </div>
+
+                <div class="dash-row">
+                    <div class="graph-box">
+                        <div style="width: 90%; background: #fff; border-radius: 15px; border: 1px solid #f0f0f0; overflow: hidden;">
+                            <div style="background: #045951; color: white; padding: 15px; font-weight: bold;">🏆 Top 5 Produtos (Mais Lucro)</div>
+                            <div class="rank-item"><span>1. Cerveja Skol Lata</span> <span class="rank-badge">R$ 12.400,00</span></div>
+                            <div class="rank-item"><span>2. Coca-Cola 2L</span> <span class="rank-badge">R$ 9.800,00</span></div>
+                            <div class="rank-item"><span>3. Leite Integral Itambé</span> <span class="rank-badge">R$ 7.200,00</span></div>
+                            <div class="rank-item"><span>4. Arroz Tio João 5kg</span> <span class="rank-badge">R$ 5.100,00</span></div>
+                            <div class="rank-item" style="border:none;"><span>5. Feijão Camil 1kg</span> <span class="rank-badge">R$ 4.300,00</span></div>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Ranking de Rentabilidade</h3>
+                        <p>Identificamos quais itens geram o maior **ROI real**. Este relatório cruza o volume de vendas com a margem de lucro, permitindo que o dono do mercado decida quais produtos merecem mais espaço na gôndola e quais fornecedores têm a melhor negociação.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row reverse">
+                    <div class="graph-box">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; color: #28a745; font-weight: 800; margin-bottom: 5px;">R$ 15.420,00</div>
+                            <div style="color: #888; font-size: 1rem;">Capital recuperado via <b>Liquidificador PVPS</b></div>
+                            <div style="margin-top: 20px; width: 100%; background: #eee; height: 10px; border-radius: 5px;">
+                                <div style="width: 88%; background: #0ABFAD; height: 100%;"></div>
+                            </div>
+                            <small style="color: #0ABFAD;">88% de eficiência em liquidações</small>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Relatório de Perdas Evitadas</h3>
+                        <p>Diferente de sistemas comuns, o Stoque.me quantifica o que você **não perdeu**. Aqui mostramos o valor total de itens que seriam descartados por vencimento, mas foram vendidos através das promoções automáticas sugeridas pelo nosso algoritmo.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row">
+                    <div class="graph-box">
+                        <div style="display: flex; gap: 20px; align-items: flex-end; height: 150px;">
+                            <div style="width: 60px; height: 100%; background: #0ABFAD; border-radius: 5px; position: relative;" title="Ana">
+                                <span style="position: absolute; bottom: -25px; left: 0; width: 100%; text-align: center; font-size: 0.8rem; color: #888;">Ana</span>
+                            </div>
+                            <div style="width: 60px; height: 80%; background: #0ABFAD; border-radius: 5px; position: relative;" title="Carlos">
+                                <span style="position: absolute; bottom: -25px; left: 0; width: 100%; text-align: center; font-size: 0.8rem; color: #888;">Carlos</span>
+                            </div>
+                            <div style="width: 60px; height: 60%; background: #045951; border-radius: 5px; position: relative;" title="João">
+                                <span style="position: absolute; bottom: -25px; left: 0; width: 100%; text-align: center; font-size: 0.8rem; color: #888;">João</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Auditoria Operacional</h3>
+                        <p>Relatório de produtividade por funcionário. Através do **ID de Operador**, o sistema contabiliza quem realizou mais cadastros, baixas e entradas de carga. Útil para gratificações e monitoramento de segurança do inventário.</p>
+                    </div>
+                </div>
+
+                <div class="dash-row reverse">
+                    <div class="graph-box">
+                        <div style="width: 80%; background: #222; color: #0ABFAD; padding: 30px; border-radius: 15px; font-family: monospace; border: 2px solid #444;">
+                            <div style="color: #fff; margin-bottom: 10px;">> EMITINDO BALANÇO MENSAL...</div>
+                            <div style="display: flex; justify-content: space-between;"><span>Vendas Brutas:</span> <span>R$ 145.000,00</span></div>
+                            <div style="display: flex; justify-content: space-between;"><span>Custo Mercadoria:</span> <span>- R$ 85.000,00</span></div>
+                            <div style="display: flex; justify-content: space-between; color: #fff; border-top: 1px solid #444; margin-top: 5px;"><span>LUCRO LÍQUIDO:</span> <span>R$ 60.000,00</span></div>
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <h3>Fechamento de Ciclo</h3>
+                        <p>O resumo financeiro definitivo. O Stoque.me consolida todas as movimentações para entregar o **lucro líquido real**, descontando custos de aquisição e perdas operacionais, facilitando a vida do contador e do dono do mercado.</p>
+                    </div>
+                </div>
+
+            </div>
+        `;
+    });
+</script>
