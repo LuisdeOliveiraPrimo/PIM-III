@@ -38,8 +38,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/HomeInterna.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZUludGVybmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/Produtos.cshtml]
@@ -56,4 +64,8 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/luiso/PIM_3/PIM-III/PIM_3/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/luiso/PIM_3/PIM-III/PIM_3/Views/Estoque/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0b3F1ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,75 @@
+@page
+@model PIM_3.Pages.HomeInternaModel
+@{
+    ViewData["Title"] = "Portal do Gestor | Stoque.me";
+}
+
+<div id="app-root"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('app-root');
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            body { margin: 0; background: #f0f4f3; font-family: 'Segoe UI', sans-serif; }
+            .sidebar { width: 250px; background: #045951; height: 100vh; position: fixed; color: white; padding: 30px 20px; }
+            .sidebar h2 { font-style: italic; font-weight: 800; margin-bottom: 50px; }
+            .nav-link { display: block; color: rgba(255,255,255,0.7); text-decoration: none; padding: 15px; border-radius: 10px; margin-bottom: 10px; transition: 0.3s; }
+            .nav-link:hover, .nav-link.active { background: #0ABFAD; color: white; }
+            
+            .content { margin-left: 290px; padding: 40px; }
+            .welcome-card { background: linear-gradient(135deg, #045951, #0ABFAD); color: white; padding: 40px; border-radius: 25px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            
+            .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+            .feature-card { background: white; padding: 30px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+            .feature-card:hover { transform: translateY(-10px); border-color: #0ABFAD; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+            .feature-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+            .feature-card h3 { color: #045951; margin-bottom: 10px; }
+            .feature-card p { color: #888; font-size: 0.9rem; }
+        `;
+        document.head.appendChild(style);
+
+        root.innerHTML = `
+            <div class="sidebar">
+                <h2>Stoque.me</h2>
+                <a href="/HomeInterna" class="nav-link active">🏠 Início</a>
+                <a href="/Dashboard" class="nav-link">📊 Dashboard</a>
+                
+                <a href="/Estoque" class="nav-link">📦 Estoque</a>
+                
+                <a href="/Relatorios" class="nav-link">📑 Relatórios</a>
+                <div style="margin-top: 100px;">
+                    <a href="/" class="nav-link" style="color: #ff7675;">🚪 Sair</a>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="welcome-card">
+                    <h1>Olá, Luis! 👋</h1>
+                    <p>O painel de controle do Stoque.me está pronto. O que vamos gerenciar hoje?</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card" onclick="window.location.href='/Dashboard'">
+                        <span class="feature-icon">📈</span>
+                        <h3>Dashboard Analítico</h3>
+                        <p>Visão geral de faturamento, ROI e indicadores de desempenho.</p>
+                    </div>
+                    
+                    <div class="feature-card" onclick="window.location.href='/Estoque'">
+                        <span class="feature-icon">📦</span>
+                        <h3>Gestão de Estoque</h3>
+                        <p>Controle de inventário, promoções PVPS e entrada de mercadorias.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="window.location.href='/Relatorios'">
+                        <span class="feature-icon">📑</span>
+                        <h3>Centro de Relatórios</h3>
+                        <p>Extratos mensais, performance de equipe e auditoria.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+</script>

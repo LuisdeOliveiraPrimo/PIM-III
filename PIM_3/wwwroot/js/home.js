@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnAcao = document.createElement('button');
     btnAcao.innerText = "Começar Agora";
     btnAcao.style.cssText = "background:#007bff; color:white; padding:15px 40px; border-radius:30px; border:none; cursor:pointer; font-weight:bold; font-size:1.1rem; box-shadow: 0 4px 15px rgba(0,123,255,0.3);";
-    btnAcao.onclick = () => window.location.href = '/Produtos';
+    btnAcao.onclick = () => window.location.href = '/Login';
 
     hero.append(tituloHero, subTituloHero, btnAcao);
 
