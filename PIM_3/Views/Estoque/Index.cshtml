@@ -190,14 +190,19 @@
             }
     </style>
 </head>
-<body>
 
+<body>
+    
     <div class="sidebar">
         <h2>Stoque.me</h2>
         <a href="/HomeInterna" class="nav-link">🏠 Início</a>
-        <a href="/Dashboard" class="nav-link">📊 Dashboard</a>
-        <a href="/Estoque" class="nav-link active">📦 Estoque</a>
-        <a href="/" class="nav-link logout">🚪 Sair</a>
+        <a href="/DashboardInterno" class="nav-link">📊 Dashboard</a>
+        <a href="/Estoque" class="nav-link">📦 Estoque</a>
+        <a href="/RelatoriosInternos" class="nav-link">📑 Relatórios</a>
+        
+        <div style="margin-top: 100px;">
+            <a href="/" class="nav-link logout" style="color: #ff7675;">🚪 Sair</a>
+        </div>
     </div>
 
     <div class="content">
@@ -298,7 +303,7 @@
                                 <td><span class="badge-qtd" style="color:var(--info)">@qtdVenda un</span></td>
                                 <td>R$ @(v.Produto?.PrecoPromocional ?? v.Produto?.PrecoVenda ?? 0)</td>
                                 <td class="fw-bold">R$ @((qtdVenda * (v.Produto?.PrecoPromocional ?? v.Produto?.PrecoVenda ??
-                                                                0)).ToString("N2"))</td>
+                                                                                                                                        0)).ToString("N2"))</td>
                                 </tr>
                             }
                         </tbody>

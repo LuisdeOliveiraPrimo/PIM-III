@@ -1,0 +1,205 @@
+@page
+@model PIM_3.Pages.RelatoriosInternosModel
+@{
+    ViewData["Title"] = "Central de Auditoria | Stoque.me";
+}
+
+<div id="app-root"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('app-root');
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            body { margin: 0; background: #f0f4f3; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+            .sidebar { width: 250px; background: #045951; height: 100vh; position: fixed; color: white; padding: 30px 20px; z-index: 100; }
+            .sidebar h2 { font-style: italic; font-weight: 800; margin-bottom: 50px; color: #0ABFAD; }
+            .nav-link { display: block; color: rgba(255,255,255,0.7); text-decoration: none; padding: 15px; border-radius: 10px; margin-bottom: 10px; transition: 0.3s; }
+            .nav-link:hover, .nav-link.active { background: #0ABFAD; color: white; }
+            
+            .content { margin-left: 290px; padding: 40px; }
+            .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+
+            /* Filtros */
+            .filter-bar { background: white; padding: 20px; border-radius: 15px; display: flex; gap: 20px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+            .filter-group { display: flex; flex-direction: column; gap: 5px; }
+            .filter-group label { font-size: 0.7rem; font-weight: bold; color: #888; text-transform: uppercase; }
+            .filter-group select, .filter-group input { padding: 8px; border: 1px solid #eee; border-radius: 8px; outline: none; color: #444; }
+
+            /* Grid de Relatórios */
+            .report-section { display: grid; grid-template-columns: 1fr; gap: 20px; }
+            .report-card { 
+                background: white; 
+                padding: 20px; 
+                border-radius: 15px; 
+                display: flex; 
+                align-items: center; 
+                gap: 20px; 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+                transition: 0.3s;
+                border: 1px solid transparent;
+            }
+            .report-card:hover { border-color: #0ABFAD; transform: translateX(5px); }
+            .icon-box { width: 50px; height: 50px; border-radius: 12px; background: #e0f2f1; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+            
+            .report-info { flex: 1; }
+            .report-info h4 { margin: 0; color: #045951; }
+            .report-info p { margin: 5px 0 0; color: #888; font-size: 0.85rem; }
+
+            .btn-download { 
+                background: #0ABFAD; 
+                color: white; 
+                border: none; 
+                padding: 10px 20px; 
+                border-radius: 8px; 
+                cursor: pointer; 
+                font-weight: bold; 
+                font-size: 0.8rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .btn-download:hover { background: #045951; }
+
+            /* Log de Atividade */
+            .log-panel { background: white; padding: 25px; border-radius: 20px; margin-top: 40px; }
+            .log-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+            .log-table th { text-align: left; padding: 12px; color: #888; border-bottom: 1px solid #eee; }
+            .log-table td { padding: 12px; border-bottom: 1px solid #f9f9f9; color: #444; }
+            .badge { padding: 4px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; }
+            .bg-pdf { background: #ffe3e3; color: #e03131; }
+            .bg-xls { background: #e3faf3; color: #099268; }
+        `;
+        document.head.appendChild(style);
+
+        root.innerHTML = `
+            <div class="sidebar">
+                <h2>Stoque.me</h2>
+                <a href="/HomeInterna" class="nav-link">🏠 Início</a>
+                <a href="/DashboardInterno" class="nav-link">📊 Dashboard</a>
+                <a href="/Estoque" class="nav-link">📦 Estoque</a>
+                <a href="/RelatoriosInternos" class="nav-link active">📑 Relatórios</a>
+                <div style="margin-top: 100px;">
+                    <a href="/" class="nav-link" style="color: #ff7675;">🚪 Sair</a>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="header-flex">
+                    <h1 style="color: #045951; margin:0;">Centro de Resultados Internos</h1>
+                    <span style="color: #888; font-size: 0.9rem;">Luis (Admin) • Unidade Matriz</span>
+                </div>
+
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label>Categoria</label>
+                        <select>
+                            <option>Todos os Relatórios</option>
+                            <option>Financeiro</option>
+                            <option>Estoque / PVPS</option>
+                            <option>Suprimentos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Período</label>
+                        <input type="month" value="2026-03">
+                    </div>
+                    <div class="filter-group">
+                        <label>Formato</label>
+                        <select>
+                            <option>PDF (Documento)</option>
+                            <option>XLSX (Planilha)</option>
+                            <option>CSV (Dados)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <div class="report-card">
+                        <div class="icon-box">💰</div>
+                        <div class="report-info">
+                            <h4>Fechamento Mensal Consolidado</h4>
+                            <p>DRE completa, Fluxo de Caixa e Margem de Contribuição por setor.</p>
+                        </div>
+                        <button class="btn-download">⬇️ Download PDF</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="icon-box">🛡️</div>
+                        <div class="report-info">
+                            <h4>Impacto Estratégico PVPS (Desperdício Zero)</h4>
+                            <p>Detalhamento de R$ 118.240,00 recuperados em produtos próximos ao vencimento.</p>
+                        </div>
+                        <button class="btn-download">⬇️ Download PDF</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="icon-box">🚛</div>
+                        <div class="report-info">
+                            <h4>Auditoria de Fornecedores e Supply Chain</h4>
+                            <p>Score de performance de 7.000 parceiros e análise de lead time.</p>
+                        </div>
+                        <button class="btn-download">⬇️ Download XLSX</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="icon-box">👥</div>
+                        <div class="report-info">
+                            <h4>Performance da Equipe e Operação</h4>
+                            <p>Produtividade por colaborador, erros de bipagem e tempo médio de fila.</p>
+                        </div>
+                        <button class="btn-download">⬇️ Download PDF</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="icon-box">🔍</div>
+                        <div class="report-info">
+                            <h4>Inventário Geral (15.240 SKUs)</h4>
+                            <p>Lista completa de itens, posição de gôndola e valor de custo imobilizado.</p>
+                        </div>
+                        <button class="btn-download">⬇️ Download CSV</button>
+                    </div>
+                </div>
+
+                <div class="log-panel">
+                    <h3 style="color: #045951; margin-bottom: 20px;">📜 Histórico de Geração (Log)</h3>
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Relatório</th>
+                                <th>Usuário</th>
+                                <th>Formato</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>23/03/2026 14:05</td>
+                                <td>Impacto PVPS - Março</td>
+                                <td>Luis (Admin)</td>
+                                <td><span class="badge bg-pdf">PDF</span></td>
+                                <td style="color: #2ecc71;">● Concluído</td>
+                            </tr>
+                            <tr>
+                                <td>23/03/2026 09:12</td>
+                                <td>Inventário Geral</td>
+                                <td>Luis (Admin)</td>
+                                <td><span class="badge bg-xls">XLSX</span></td>
+                                <td style="color: #2ecc71;">● Concluído</td>
+                            </tr>
+                            <tr>
+                                <td>22/03/2026 18:30</td>
+                                <td>Fechamento Mensal</td>
+                                <td>Sistema (Auto)</td>
+                                <td><span class="badge bg-pdf">PDF</span></td>
+                                <td style="color: #2ecc71;">● Concluído</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    });
+</script>
