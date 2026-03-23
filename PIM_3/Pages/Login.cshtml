@@ -1,0 +1,88 @@
+@page
+@model PIM_3.Pages.LoginModel
+@{
+    Layout = null; // Remove o layout padrão para ser uma tela limpa
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Stoque.me</title>
+    <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', sans-serif;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #0ABFAD, #045951);
+            }
+
+            .login-card {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+                width: 350px;
+                text-align: center;
+            }
+
+            .logo {
+                font-style: italic;
+                font-weight: 800;
+                font-size: 2rem;
+                background: linear-gradient(90deg, #0ABFAD, #045951);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 30px;
+            }
+
+            input {
+                width: 100%;
+                padding: 12px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                background: #0ABFAD;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: 0.3s;
+            }
+
+            button:hover {
+                background: #045951;
+            }
+
+            a {
+                color: #888;
+                text-decoration: none;
+                font-size: 0.8rem;
+                display: block;
+                margin-top: 15px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="logo">Stoque.me</div>
+        <h3 style="color: #333; margin-bottom: 20px;">Acesse seu Painel</h3>
+        <input type="email" placeholder="E-mail" value="admin@stoque.me">
+        <input type="password" placeholder="Senha" value="123456">
+        <button onclick="window.location.href='/HomeInterna'">Entrar no Sistema</button>
+        <a href="/">← Voltar para a Landing Page</a>
+    </div>
+</body>
+
+</html>
