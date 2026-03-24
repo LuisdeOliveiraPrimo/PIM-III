@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PIM_3.Data;
 using PIM_3.Models;
+using PIM_3.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=PimBanco.db"));
+
+builder.Services.AddScoped<IEstoqueService, EstoqueService>();
 
 var app = builder.Build();
 
