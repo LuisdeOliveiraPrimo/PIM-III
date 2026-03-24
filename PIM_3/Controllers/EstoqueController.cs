@@ -27,9 +27,11 @@ public class EstoqueController : Controller
             .ToListAsync();
 
         // 2. Busca lotes que vencem em até 7 dias (Para a tabela de Promoções)
+        // Exclui itens que já estão com PreçoPromocional ativo (vão para Promoções Ativas)
         ViewBag.Promocoes = await _context.Lotes
             .Include(l => l.Produto)
-            .Where(l => l.DataValidade <= dataLimite && l.DataValidade >= DateTime.Now && l.QuantidadeAtual > 0)
+            .Where(l => l.DataValidade <= dataLimite && l.DataValidade >= DateTime.Now && l.QuantidadeAtual > 0
+                        && (l.Produto.PrecoPromocional == null || l.Produto.PrecoPromocional <= 0))
             .OrderBy(l => l.DataValidade)
             .Take(15)
             .ToListAsync();
@@ -40,6 +42,11 @@ public class EstoqueController : Controller
             .Where(l => l.QuantidadeAtual < l.QuantidadeInicial)
             .OrderByDescending(l => l.Id)
             .Take(10)
+            .ToListAsync();
+
+        // 4. Busca Produtos que já têm preço promocional (promoções ativas)
+        ViewBag.PromocoesAtivas = await _context.Produtos
+            .Where(p => p.PrecoPromocional != null && p.PrecoPromocional > 0)
             .ToListAsync();
 
         ViewBag.PaginaAtual = pagina;
@@ -69,5 +76,17 @@ public class EstoqueController : Controller
         await _context.SaveChangesAsync();
 
         return Ok(new { mensagem = $"Preço de {produto.Nome} atualizado para R$ {novoPreco:N2}" });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RemoverPromocao(int produtoId)
+    {
+        var produto = await _context.Produtos.FindAsync(produtoId);
+        if (produto == null) return NotFound();
+
+        produto.PrecoPromocional = null;
+        await _context.SaveChangesAsync();
+
+        return Ok(new { mensagem = $"Promoção removida de {produto.Nome}" });
     }
 }

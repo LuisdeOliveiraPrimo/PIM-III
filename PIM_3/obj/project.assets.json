@@ -2404,11 +2404,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\luiso\\Desktop\\PIM_III\\PIM-III\\PIM_3\\PIM_3.csproj",
+      "projectUniqueName": "C:\\Users\\luiso\\PIM-III\\PIM_3\\PIM_3.csproj",
       "projectName": "PIM_3",
-      "projectPath": "C:\\Users\\luiso\\Desktop\\PIM_III\\PIM-III\\PIM_3\\PIM_3.csproj",
+      "projectPath": "C:\\Users\\luiso\\PIM-III\\PIM_3\\PIM_3.csproj",
       "packagesPath": "C:\\Users\\luiso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\luiso\\Desktop\\PIM_III\\PIM-III\\PIM_3\\obj\\",
+      "outputPath": "C:\\Users\\luiso\\PIM-III\\PIM_3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\luiso\\AppData\\Roaming\\NuGet\\NuGet.Config"

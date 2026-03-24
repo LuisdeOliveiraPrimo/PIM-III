@@ -3,6 +3,7 @@
     Layout = null;
     int paginaAtual = ViewBag.PaginaAtual ?? 1;
     var promocoes = ViewBag.Promocoes as IEnumerable<PIM_3.Models.Lote>;
+    var promocoesAtivas = ViewBag.PromocoesAtivas as IEnumerable<PIM_3.Models.Produto>;
     var vendas = ViewBag.Vendas as IEnumerable<PIM_3.Models.Lote>;
 }
 
@@ -283,6 +284,40 @@
                 </table>
             </div>
 
+            <h1 style="color: #6f42c1">🎯 Promoções Ativas (PVPS aplicadas)</h1>
+            <div class="card" style="border-left: 8px solid #6f42c1">
+                <table class="table" id="tablePromocoesAtivas">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Preço Original</th>
+                            <th>Preço Promocional</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (promocoesAtivas != null && promocoesAtivas.Any())
+                        {
+                            foreach (var ativo in promocoesAtivas)
+                            {
+                                <tr class="searchable-row">
+                                    <td class="product-name">@ativo.Nome</td>
+                                    <td>R$ @ativo.PrecoVenda.ToString("N2")</td>
+                                    <td>R$ @ativo.PrecoPromocional?.ToString("N2")</td>
+                                    <td><button onclick="removerPromocao(@ativo.Id)" style="background: #ccc; color: #333; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer;">Remover</button></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" style="text-align:center; color:#666;">Nenhuma promoção ativa no momento.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <h1 style="color: var(--info)">💰 Histórico de Vendas</h1>
             <div class="card" style="border-left: 8px solid var(--info)">
                 <table class="table" id="tableVendas">
@@ -340,8 +375,20 @@
 
                     async function promocao(id) {
                         const v = document.getElementById(`pr-${id}`).value;
+                        if (!v || isNaN(v) || Number(v) <= 0) {
+                            alert('Informe um preço válido para a promoção.');
+                            return;
+                        }
                         const res = await fetch(`/Estoque/AplicarPromocao?produtoId=${id}&novoPreco=${v}`, { method: 'POST' });
                         if (res.ok) { alert("✅ Promoção Salva!"); location.reload(); }
+                    }
+
+                    async function removerPromocao(id) {
+                        const confirmRemove = confirm('Remover preço promocional desse produto?');
+                        if (!confirmRemove) return;
+
+                        const res = await fetch(`/Estoque/RemoverPromocao?produtoId=${id}`, { method: 'POST' });
+                        if (res.ok) { alert('✅ Promoção removida!'); location.reload(); }
                     }
             </script>
         </body>
