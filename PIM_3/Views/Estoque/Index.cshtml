@@ -1,0 +1,209 @@
+@model IEnumerable<PIM_3.Models.Lote>
+@{
+    Layout = null;
+    int paginaAtual = ViewBag.PaginaAtual ?? 1;
+    var promocoes = ViewBag.Promocoes as IEnumerable<PIM_3.Models.Lote>;
+    var promocoesAtivas = ViewBag.PromocoesAtivas as IEnumerable<PIM_3.Models.Produto>;
+    var vendas = ViewBag.Vendas as IEnumerable<PIM_3.Models.Lote>;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Gestão de Estoque | Stoque.me</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary: #045951; --light: #0ABFAD; --danger: #ff7675; --info: #0d6efd; }
+        body { margin: 0; background: #f0f4f3; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { width: 260px; background: linear-gradient(180deg, var(--primary) 0%, #03413b 100%); height: 100vh; position: fixed; color: white; padding: 40px 15px; box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
+        .sidebar h2 { font-size: 1.8rem; font-style: italic; font-weight: 800; margin-bottom: 50px; text-align: center; color: var(--light); }
+        .nav-link { display: flex; align-items: center; color: rgba(255, 255, 255, 0.6); text-decoration: none; padding: 14px 20px; border-radius: 15px; margin-bottom: 8px; transition: 0.3s; gap: 15px; }
+        .nav-link:hover, .nav-link.active { background: var(--light); color: white; }
+        .logout { margin-top: auto; color: var(--danger); border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; }
+        .content { margin-left: 290px; padding: 40px; }
+        .search-container { position: sticky; top: 0; z-index: 90; background: #f0f4f3; padding: 10px 0 25px 0; }
+        .search-box { position: relative; width: 100%; max-width: 600px; }
+        .search-box input { width: 100%; padding: 15px 20px 15px 45px; border-radius: 15px; border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); outline: none; transition: 0.3s; font-size: 1rem; }
+        .search-box input:focus { border-color: var(--light); box-shadow: 0 5px 20px rgba(10, 191, 173, 0.2); }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--light); font-size: 1.2rem; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); margin-bottom: 40px; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { text-align: left; color: #888; padding: 12px; border-bottom: 2px solid #f0f4f3; font-size: 0.8rem; text-transform: uppercase; }
+        .table td { padding: 12px; border-bottom: 1px solid #f0f4f3; vertical-align: middle; }
+        .badge-qtd { background: #eef2f1; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: var(--primary); }
+        .input-ajuste { width: 55px; border: 1px solid #ddd; border-radius: 5px; padding: 5px; text-align: center; margin: 0 5px; }
+        .btn-action { border: none; background: #f0f4f3; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .page-btn { background: white; color: var(--primary); padding: 8px 15px; border-radius: 8px; text-decoration: none; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Stoque.me</h2>
+        <a href="/HomeInterna" class="nav-link">🏠 Início</a>
+        <a href="/DashboardInterno" class="nav-link">📊 Dashboard</a>
+        <a href="/Estoque" class="nav-link">📦 Estoque</a>
+        <a href="/RelatoriosInternos" class="nav-link">📑 Relatórios</a>
+        <div style="margin-top: 100px;"><a href="/" class="nav-link logout" style="color: #ff7675;">🚪 Sair</a></div>
+    </div>
+
+    <div class="content">
+        <div class="search-container"><div class="search-box"><i class="bi bi-search"></i><input type="text" id="globalSearch" placeholder="Pesquisar produto (ex: Coca, Detergente, SKU...)" onkeyup="filterAllTables()"></div></div>
+
+        <h1 style="color: var(--primary)">📦 Inventário Geral (Página @paginaAtual)</h1>
+        <div class="card">
+            <table class="table" id="tableInventario">
+                <thead>
+                    <tr><th>Produto</th><th>Preço Unit.</th><th>Estoque</th><th>Vencimento</th><th style="text-align: center;">Movimentação</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="searchable-row">
+                            <td class="fw-bold product-name">@item.Produto?.Nome</td>
+                            <td>R$ @item.Produto?.PrecoVenda.ToString("N2")</td>
+                            <td><span id="qtd-@item.Id" class="badge-qtd">@item.QuantidadeAtual</span></td>
+                            <td>@item.DataValidade.ToString("dd/MM/yyyy")</td>
+                            <td style="text-align: center; display: flex; align-items: center; justify-content: center;">
+                                <button class="btn-action" style="color:var(--danger)" onclick="ajustarEstoque(@item.Id, 'menos')">-</button>
+                                <input type="number" id="input-ajuste-@item.Id" class="input-ajuste" value="1">
+                                <button class="btn-action" style="color:var(--light)" onclick="ajustarEstoque(@item.Id, 'mais')">+</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pagination"><a href="/Estoque?pagina=@(paginaAtual - 1)" class="page-btn">Anterior</a><span class="page-btn" style="background: var(--light); color: white;">@paginaAtual</span><a href="/Estoque?pagina=@(paginaAtual + 1)" class="page-btn">Próxima</a></div>
+        </div>
+
+        <div class="card" style="border-left: 8px solid #fd7e14; margin-bottom: 20px;"><h3>⚠️ Alertas</h3><p><strong>Estoque baixo:</strong> @((ViewBag.EstoqueBaixo as IEnumerable<PIM_3.Models.Lote>)?.Count() ?? 0) itens</p><p><strong>Lotes perto de vencer (3 dias):</strong> @((ViewBag.LotesVencendo as IEnumerable<PIM_3.Models.Lote>)?.Count() ?? 0) itens</p></div>
+
+        <h1 style="color: var(--danger)">🔥 Promoções Relâmpago (PVPS)</h1>
+        <div class="card" style="border-left: 8px solid var(--danger)">
+            <table class="table" id="tablePromocoes">
+                <thead><tr><th>Produto</th><th>Validade</th><th>Qtd</th><th>Preço Oferta</th><th>Ação</th></tr></thead>
+                <tbody>
+                    @foreach (var p in promocoes ?? Enumerable.Empty<PIM_3.Models.Lote>())
+                    {
+                        var lockAtivo = (ViewBag.Locks as IEnumerable<PIM_3.Models.PromocaoLock>)?.Any(l => l.ProdutoId == p.ProdutoId) ?? false;
+                        var sugestao = Math.Round((double)(p.Produto?.PrecoVenda ?? 0m) * 0.7, 2);
+                        <tr class="searchable-row promo-pvps" id="lote-@p.Id">
+                            <td class="product-name">@p.Produto?.Nome <span class="badge status-pvps">PVPS</span></td>
+                            <td class="text-danger fw-bold">@p.DataValidade.ToString("dd/MM/yyyy")</td>
+                            <td>@p.QuantidadeAtual</td>
+                            <td><input type="number" id="pr-@p.ProdutoId" style="width: 100px; padding: 5px; border-radius: 5px; border: 1px solid #ddd;" step="0.01" placeholder="Sugestão: R$ @sugestao" /></td>
+                            <td><button onclick="promocao(@p.ProdutoId)" style="background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;" @(lockAtivo ? "disabled" : "")>@(lockAtivo ? "Bloqueado" : "Aplicar")</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <h1 style="color: #6f42c1">🎯 Promoções Ativas (PVPS aplicadas)</h1>
+        <div class="card" style="border-left: 8px solid #6f42c1">
+            <table class="table" id="tablePromocoesAtivas">
+                <thead><tr><th>Produto</th><th>Preço Original</th><th>Preço Promocional</th><th>Status</th><th>Ações</th></tr></thead>
+                <tbody>
+                    @if (promocoesAtivas != null && promocoesAtivas.Any())
+                    {
+                        foreach (var ativo in promocoesAtivas)
+                        {
+                            <tr class="searchable-row promo-ativa" id="produto-@ativo.Id">
+                                <td class="product-name">@ativo.Nome</td>
+                                <td>R$ @ativo.PrecoVenda.ToString("N2")</td>
+                                <td>R$ @ativo.PrecoPromocional?.ToString("N2")</td>
+                                <td><span class="badge status-ativa">Ativa</span></td>
+                                <td><button onclick="removerPromocao(@ativo.Id)" class="btn-action">Remover</button></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="5" style="text-align:center; color:#666;">Nenhuma promoção ativa no momento.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <h1 style="color: #17a2b8">🕒 Histórico de Promoções</h1>
+        <div class="card" style="border-left: 8px solid #17a2b8; margin-bottom: 20px;"><label for="filtroHistorico" style="font-weight:700;">Filtrar:</label><select id="filtroHistorico" onchange="atualizarPeriodo()" style="margin-left:8px; padding:4px;"><option value="1" @(ViewBag.HistoricoDias == 1 ? "selected" : "")>Hoje</option><option value="7" @(ViewBag.HistoricoDias == 7 ? "selected" : "")>7 dias</option><option value="30" @(ViewBag.HistoricoDias == 30 ? "selected" : "")>30 dias</option></select></div>
+        <div class="card" style="border-left: 8px solid #17a2b8">
+            <table class="table" id="tableHistoricoPromocoes">
+                <thead><tr><th>Data</th><th>Produto</th><th>Usuário</th><th>Preço antigo</th><th>Preço aplicado</th><th>Ação</th><th>Undo/Redo</th></tr></thead>
+                <tbody>
+                    @foreach (var h in (ViewBag.HistoricoPromocoes as IEnumerable<PIM_3.Models.PromocaoHistorico> ?? Enumerable.Empty<PIM_3.Models.PromocaoHistorico>()))
+                    {
+                        <tr class="searchable-row">
+                            <td>@h.Data.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@h.Produto?.Nome</td>
+                            <td>@h.Usuario</td>
+                            <td>R$ @h.PrecoAntigo.ToString("N2")</td>
+                            <td>R$ @h.PrecoAplicado.ToString("N2")</td>
+                            <td>@h.Acao</td>
+                            <td><button class="btn-action" onclick="undoPromocao(@h.Id)">Undo</button><button class="btn-action" onclick="redoPromocao(@h.Id)">Redo</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <h1 style="color: var(--info)">💰 Histórico de Vendas</h1>
+        <div class="card" style="border-left: 8px solid var(--info)">
+            <table class="table" id="tableVendas">
+                <thead><tr><th>Produto</th><th>Vendidos</th><th>Preço Final</th><th>Total Bruto</th></tr></thead>
+                <tbody>
+                    @foreach (var v in vendas ?? Enumerable.Empty<PIM_3.Models.Lote>())
+                    {
+                        int qtdVenda = v.QuantidadeInicial - v.QuantidadeAtual;
+                        <tr class="searchable-row">
+                            <td class="product-name">@v.Produto?.Nome</td>
+                            <td><span class="badge-qtd" style="color:var(--info)">@qtdVenda un</span></td>
+                            <td>R$ @(v.Produto?.PrecoPromocional ?? v.Produto?.PrecoVenda ?? 0)</td>
+                            <td class="fw-bold">R$ @((qtdVenda * (v.Produto?.PrecoPromocional ?? v.Produto?.PrecoVenda ?? 0)).ToString("N2"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function filterAllTables() {
+            const input = document.getElementById("globalSearch");
+            const filter = input.value.toUpperCase();
+            const rows = document.querySelectorAll(".searchable-row");
+            rows.forEach(row => {
+                const productName = row.querySelector(".product-name")?.innerText ?? "";
+                row.style.display = productName.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            });
+        }
+
+        async function ajustarEstoque(id, operacao) {
+            const val = parseInt(document.getElementById(`input-ajuste-${id}`).value);
+            const mudanca = operacao === 'menos' ? (val * -1) : val;
+            const res = await fetch(`/Estoque/AjustarEstoque?id=${id}&mudanca=${mudanca}`, { method: 'POST' });
+            if (res.ok) {
+                const d = await res.json();
+                document.getElementById(`qtd-${id}`).innerText = d.novaQuantidade;
+            }
+        }
+
+        async function promocao(id) {
+            const v = document.getElementById(`pr-${id}`).value;
+            if (!v || isNaN(v) || Number(v) <= 0) { alert('Informe um preço válido para a promoção.'); return; }
+            const res = await fetch(`/Estoque/AplicarPromocao?produtoId=${id}&novoPreco=${v}`, { method: 'POST' });
+            if (res.ok) { alert("✅ Promoção Salva!"); location.reload(); }
+        }
+
+        async function removerPromocao(id) {
+            const confirmRemove = confirm('Remover preço promocional desse produto?');
+            if (!confirmRemove) return;
+            const res = await fetch(`/Estoque/RemoverPromocao?produtoId=${id}`, { method: 'POST' });
+            if (res.ok) { alert('✅ Promoção removida!'); location.reload(); }
+        }
+
+        function atualizarPeriodo() { location.href = `/Estoque?pagina=${paginaAtual}`; }
+    </script>
+</body>
+</html>
