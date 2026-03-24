@@ -34,31 +34,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    // Caso o projeto já tenha uma DB criada sem o novo modelo (PromocoesLocks),
-    // recrie-a para garantir a consistência do modelo em dev/demo.
-    var connection = context.Database.GetDbConnection();
-    bool promocaoLocksExists = false;
-    try
-    {
-        if (context.Database.CanConnect())
-        {
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='PromocoesLocks';";
-            promocaoLocksExists = command.ExecuteScalar() != null;
-        }
-    }
-    finally
-    {
-        connection.Close();
-    }
-
-    if (!promocaoLocksExists)
-    {
-        context.Database.EnsureDeleted();
-        context.Database.EnsureCreated();
-    }
+    context.Database.EnsureCreated();
 
     // GERAR 15.000 PRODUTOS REAIS
     if (!context.Produtos.Any())

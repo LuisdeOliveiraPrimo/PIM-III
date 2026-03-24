@@ -9,8 +9,6 @@ namespace PIM_3.Data
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Lote> Lotes { get; set; }
-        public DbSet<PromocaoHistorico> PromocoesHistorico { get; set; }
-        public DbSet<PromocaoLock> PromocoesLocks { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; } // NOVA TABELA
         public DbSet<Funcionario> Funcionarios { get; set; }
     }
