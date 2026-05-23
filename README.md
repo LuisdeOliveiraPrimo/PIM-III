@@ -123,4 +123,4 @@ Contribuições são bem-vindas: abra issues para bugs ou features e envie pull 
 
 ## 📝 Licença
 
-Este projeto pode ser distribuído sob a licença que você desejar — se quiser, eu adiciono um arquivo `LICENSE` (por exemplo, MIT).
+Este projeto pertence a o grupo de ads da UNIP.
