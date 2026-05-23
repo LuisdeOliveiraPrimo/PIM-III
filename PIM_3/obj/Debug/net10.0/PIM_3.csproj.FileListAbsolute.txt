@@ -725,3 +725,11 @@ C:\Users\luiso\PIM-III\PIM_3\obj\Debug\net10.0\refint\PIM_3.dll
 C:\Users\luiso\PIM-III\PIM_3\obj\Debug\net10.0\PIM_3.pdb
 C:\Users\luiso\PIM-III\PIM_3\obj\Debug\net10.0\PIM_3.genruntimeconfig.cache
 C:\Users\luiso\PIM-III\PIM_3\obj\Debug\net10.0\ref\PIM_3.dll
+C:\Users\luiso\PIM-III\build_out\appsettings.Development.json
+C:\Users\luiso\PIM-III\build_out\PIM_3.staticwebassets.runtime.json
+C:\Users\luiso\PIM-III\build_out\PIM_3.staticwebassets.endpoints.json
+C:\Users\luiso\PIM-III\build_out\PIM_3.exe
+C:\Users\luiso\PIM-III\build_out\PIM_3.deps.json
+C:\Users\luiso\PIM-III\build_out\PIM_3.runtimeconfig.json
+C:\Users\luiso\PIM-III\build_out\PIM_3.dll
+C:\Users\luiso\PIM-III\build_out\PIM_3.pdb
