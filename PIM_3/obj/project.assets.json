@@ -2399,19 +2399,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\luiso\\.nuget\\packages\\": {}
+    "C:\\Users\\teles\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\luiso\\PIM-III\\PIM_3\\PIM_3.csproj",
+      "projectUniqueName": "C:\\Users\\teles\\OneDrive\\Desktop\\PIM_3PRONTO\\PIM-III\\PIM_3\\PIM_3.csproj",
       "projectName": "PIM_3",
-      "projectPath": "C:\\Users\\luiso\\PIM-III\\PIM_3\\PIM_3.csproj",
-      "packagesPath": "C:\\Users\\luiso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\luiso\\PIM-III\\PIM_3\\obj\\",
+      "projectPath": "C:\\Users\\teles\\OneDrive\\Desktop\\PIM_3PRONTO\\PIM-III\\PIM_3\\PIM_3.csproj",
+      "packagesPath": "C:\\Users\\teles\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\teles\\OneDrive\\Desktop\\PIM_3PRONTO\\PIM-III\\PIM_3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\luiso\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\teles\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -2471,7 +2471,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
