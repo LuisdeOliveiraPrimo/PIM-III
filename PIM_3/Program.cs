@@ -10,7 +10,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=PimBanco.db"));
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("Default")
+        ?? "Data Source=PimBanco.db"));
 
 builder.Services.AddScoped<IEstoqueService, EstoqueService>();
 
@@ -24,9 +26,17 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.File.Name == "service-worker.js")
+            ctx.Context.Response.Headers["Cache-Control"] = "no-cache";
+    }
+});
 app.UseRouting();
 app.UseAuthorization();
+
 
 app.MapRazorPages();
 app.MapControllerRoute(
